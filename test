@@ -1,1 +1,3 @@
-docker compose exec -e RED_DEBUG=${RED_DEBUG:-0} webhook prove -e 'raku -I.' ${*:-t/}
+docker compose build
+IMAGE=$(docker compose images -q webhook)
+docker run --rm -e RED_DEBUG=${RED_DEBUG:-0} $IMAGE prove -e 'raku -I.' ${*:-t/}
