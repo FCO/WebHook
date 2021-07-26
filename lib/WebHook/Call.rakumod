@@ -19,15 +19,15 @@ has WebHook::Caller $.caller  is rw;
 
 #| Creates new Call obj and all Posts (based on subscriptions)
 #| an run all them
-method create-call($payload = %(), :$caller = $!caller) {
-    my $call  = self.^create: :$payload;
+method create-call(::?CLASS:U: $payload = %(), :$caller) {
+    my $call = self.^create: :$payload;
     $call.caller = $_ with $caller;
     my @posts = $call.create-posts;
-    $call.running = start self.run-posts: @posts;
+    $call.running = start $call.run-posts: @posts;
     $call
 }
 
-method create-posts {
+method create-posts(::?CLASS:D:) {
     do for WebHook::Subscription.^all.Seq -> $subs {
         my $post = $subs.posts.create: :call(self);
         $post.caller = $_ with $!caller;
@@ -35,7 +35,7 @@ method create-posts {
     }
 }
 
-method run-posts(@posts) {
+method run-posts(::?CLASS:D: @posts) {
     for @posts -> WebHook::Post:D $_ { .run }
 }
 
