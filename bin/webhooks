@@ -58,3 +58,7 @@ multi MAIN("list-posts", Str :$call-id! is copy) {
 }
 
 multi MAIN("list-posts") { webhook-schema.post.^all }
+
+multi MAIN("retry", UInt :$max-retries) {
+    webhook-schema.call.retry-errors: |(:$max-retries with $max-retries)
+}
