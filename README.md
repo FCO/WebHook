@@ -12,19 +12,29 @@
 
 ## Test
 
-    * run: `/test`
-    * the test files are on dir `t`
+run:
+
+```bash
+./test
+```
+
+the test files are on dir [t](https://github.com/FCO/WebHook/tree/main/t)
 
 ## Run
 
-    * `./build.sh`
-    * `./webhook generate-tables`
-    * access service on port 9876
+```bash
+./build.sh
+./webhook generate-tables
+```
+
+access service on port 9876
 
 ## Retry poist with error
 
-    * `./webhook retry`
+```bash
+./webhook retry
+```
 
 ## Script
 
-    * use `./webhook` to access other commands
+use `./webhook` to access other commands
