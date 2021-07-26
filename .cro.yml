@@ -1,0 +1,15 @@
+---
+env:  []
+id: WebHook
+endpoints: 
+  - 
+    id: http
+    host-env: WEBHOOK_HOST
+    port-env: WEBHOOK_PORT
+    protocol: http
+    name: HTTP
+name: WebHook
+entrypoint: service.raku
+cro: 1
+links:  []
+...

@@ -1,0 +1,18 @@
+version: '3'
+services:
+  webhook:
+    build: .
+    ports:
+      - 9876:9876
+    environment:
+      RED_DATABASE: Pg host=pg password=test user=root dbname=webhooks
+    depends_on:
+      - pg
+  pg:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: test
+      POSTGRES_USER: root
+      POSTGRES_DB: webhooks
+

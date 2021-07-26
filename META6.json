@@ -1,0 +1,42 @@
+{
+  "perl": "6.*",
+  "version": "0.0.1",
+  "description": "Write me!",
+  "provides": {
+    "Controller": "lib/Controller.rakumod",
+    "Routes": "lib/Routes.rakumod",
+    "WebHook::Schema": "lib/WebHook/Schema.rakumod",
+    "WebHook::Subscription": "lib/WebHook/Subscription.rakumod",
+    "WebHook::Post": "lib/WebHook/Post.rakumod",
+    "WebHook::Post::Status": "lib/WebHook/Post/Status.rakumod",
+    "WebHook::Call": "lib/WebHook/Call.rakumod",
+    "WebHook::HTTPCaller": "lib/WebHook/HTTPCaller.rakumod",
+    "WebHook::Caller": "lib/WebHook/Caller.rakumod"
+  },
+  "auth": "Write me!",
+  "tags": [
+    ""
+  ],
+  "resources": [
+  ],
+  "name": "WebHook",
+  "test-depends": [
+  ],
+  "meta-version": "0",
+  "authors": [
+    ""
+  ],
+  "support": {
+    "source": "Write me!"
+  },
+  "depends": [
+    "Cro::HTTP",
+    "Red",
+    "LibUUID",
+    "JSON::Fast"
+  ],
+  "build-depends": [
+  ],
+  "license": "Write me!",
+  "source-url": "Write me!"
+}

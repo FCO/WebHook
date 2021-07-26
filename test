@@ -1,0 +1,1 @@
+docker compose exec -e RED_DEBUG=${RED_DEBUG:-0} webhook prove -e 'raku -I.' ${*:-t/}

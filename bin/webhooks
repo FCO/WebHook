@@ -1,0 +1,60 @@
+#!/usr/bin/env raku
+
+use Red;
+use WebHook::Schema;
+use WebHook::Post::Status;
+use Cro::Uri;
+use JSON::Fast;
+
+my %*SUB-MAIN-OPTS = :named-anywhere;
+
+my $*RED-DEBUG          = $_ with %*ENV<RED_DEBUG>;
+my $*RED-DEBUG-RESPONSE = $_ with %*ENV<RED_DEBUG_RESPONSE>;
+my @conf                = (%*ENV<RED_DATABASE> // "SQLite").split(" ");
+my $driver              = @conf.shift;
+red-defaults $driver, |%( @conf.map: { do given .split: "=" { .[0] => .[1] } } );
+
+subset Uri of Str where { Cro::Uri.parse: $_ }
+
+proto MAIN(|) { .say for {*} }
+
+multi MAIN("generate-tables") {
+    webhook-schema.drop.create;
+    "DONE"
+}
+
+multi MAIN("add-webhook", Uri :$url!, :$token = "") {
+    webhook-schema.subs.^create: :$url, |(:token(.Str) with $token)
+}
+
+multi MAIN("list-webhooks") {
+    webhook-schema.subs.^all
+}
+
+multi MAIN("call", Str $payload? = '""') {
+    my $call = webhook-schema.call.create-call: $payload.&from-json;
+    await $call.running;
+    $call
+}
+
+multi MAIN("list-calls") {
+    webhook-schema.call.^all
+}
+
+multi MAIN("list-posts", Str :$call-id! is copy, Str :$status!) {
+    my $s = WebHook::Post::Status::{$status};
+    webhook-schema.post.^all.grep: {
+        .call-id eq $call-id && .status == $s
+    }
+}
+
+multi MAIN("list-posts", Str :$status!) {
+    my $s = WebHook::Post::Status::{$status};
+    webhook-schema.post.^all.grep: *.status == $s
+}
+
+multi MAIN("list-posts", Str :$call-id! is copy) {
+    webhook-schema.post.^all.grep: *.call-id eq $call-id
+}
+
+multi MAIN("list-posts") { webhook-schema.post.^all }
