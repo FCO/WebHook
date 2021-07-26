@@ -12,7 +12,7 @@ use WebHook::Subscription;
 unit model WebHook::Call is table<call>;
 
 has Str             $.id          is id      = ~UUID.new;
-has Instant         $.time        is column = now;
+has DateTime        $.time        is column .= now;
 has Json            $.payload     is column;
 has                 @.posts       is relationship(*.call-id, :model<WebHook::Post>);
 has Bool            $.retry       is column = False;
@@ -73,5 +73,6 @@ method gist {
     id:      $!id
     time:    $!time
     payload: $!payload.&to-json()
+    posts:   @!posts.elems()
     END
 }

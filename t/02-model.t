@@ -26,7 +26,7 @@ done-testing;
 class Test::Caller does WebHook::Caller {
     has $.url;    has $.token; has $.payload;
     has $.status; has $.resp;  has $.http-st;
-    method call($u, $t, $p --> Map()) is test-assertion {
+    method call($u, $t, $p --> Map()) {
         is $u, $!url, "The expected url";
         is $t, $!token, "The expected token";
         is $p, $!payload, "The expected payload";
@@ -43,7 +43,7 @@ sub test-call(
     :$status  = Done,
     :$resp    = "worked",
     :$http-st = 200,
-) is test-assertion {
+) {
     subtest "test-call($url, $token, $payload, $status, $resp, { $http-st // "" })" => {
         without %used-urls{$url} {
             my $subs = webhook-schema.subs.^create: :$url, :$token;
@@ -80,7 +80,7 @@ sub test-retry(
     :$resp        = "worked",
     :$http-st     = 200,
     :$max-retries = 3,
-) is test-assertion {
+) {
     subtest "test-retry($url, $token, $payload, $status, $resp, { $http-st // "" }, $max-retries)" => {
         without %used-urls{$url} {
             my $subs = webhook-schema.subs.^create: :$url, :$token;

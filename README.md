@@ -21,6 +21,10 @@
     * `./webhook generate-tables`
     * access service on port 9876
 
+## Retry poist with error
+
+    * `./webhook retry`
+
 ## Script
 
     * use `./webhook` to access other commands

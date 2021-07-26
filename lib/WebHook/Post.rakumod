@@ -17,11 +17,10 @@ has Json                  $.payload is column{ :nullable };
 has UInt                  $.http-st is column{ :nullable } is rw;
 has Str                   $.resp    is column{ :nullable, :type<text> } is rw;
 has UInt                  $.tries   is column is rw = 0;
-has                       $!orig-id is referencing(*.id,        :model<WebHook::Post>);
-has                       $.orig    is relationship(*.orig-id, :model<WebHook::Post>);
 has WebHook::Post::Status $.status  is column{
     :deflate{ .key },
     :inflate{ WebHook::Post::Status::{$_} },
+    :type<varchar>,
 } is rw = Pending;
 has WebHook::Caller       $.caller  is rw = WebHook::HTTPCaller.new;
 
