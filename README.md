@@ -2,9 +2,9 @@
 
 ## Description
 
-    * language: [Raku](https://www.raku.org)
-    * web framework: [Cro](https://cro.services)
-    * ORM: [Red](https://fco.github.io/Red/)
+language: [Raku](https://www.raku.org)
+web framework: [Cro](https://cro.services)
+ORM: [Red](https://fco.github.io/Red/)
 
 ## Requirements
 
